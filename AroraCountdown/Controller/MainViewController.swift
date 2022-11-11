@@ -12,7 +12,10 @@ class MainViewController: UITableViewController {
     
     
     
-    @IBOutlet weak var tableview: UITableView!
+    @IBOutlet var tableview: UITableView!
+    
+    
+    let realm = try! Realm()
     
     //results is an autoupdating Realm datatype
     var countdownList : Results<Countdown>?
@@ -37,6 +40,16 @@ class MainViewController: UITableViewController {
         
         storeNotificationList()
         
+        print("view did load. list count \(countdownList?.count ?? 0)")
+        
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        print("view will appear. list count \(countdownList?.count ?? 0)")
+        
+        tableview.reloadData()
         
     }
     
@@ -57,10 +70,12 @@ class MainViewController: UITableViewController {
     }
     
     
-    
-    @IBAction func addButtonPressed(_ sender: Any) {
+    @IBAction func addButton(_ sender: UIBarButtonItem) {
         
-        //TODO: go to AddCounterVC
+        if let storyBoard : UIStoryboard = self.storyboard{
+            let addCountdownVC = storyBoard.instantiateViewController(withIdentifier: "AddCountdownVC") as! AddCounterViewController
+            self.present(addCountdownVC, animated:true, completion:nil)
+        }
         
     }
     
@@ -75,11 +90,11 @@ class MainViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return countdownList?.count ?? 0
+        return countdownList?.count ?? 1
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Countdown Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CountdownCell", for: indexPath)
         
         if let countdown = countdownList?[indexPath.row] {
         
@@ -103,9 +118,19 @@ class MainViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         
-        //TODO: if an item is clicked go to the AddCounterVC and pass the id clicked. So that it will be flagged as an edit and it will know what is being edited.
+        performSegue(withIdentifier: "goToAddCountdown", sender: self)
         
+        tableView.deselectRow(at: indexPath, animated: true)
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let destinationVC = segue.destination as! AddCounterViewController
+        
+        if let indexPath = tableview.indexPathForSelectedRow {
+            destinationVC.countdown = countdownList?[indexPath.row] ?? Countdown()
+        }
         
     }
 

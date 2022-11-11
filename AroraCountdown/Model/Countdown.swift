@@ -19,12 +19,9 @@ class Countdown : Object {
     
     @objc dynamic var countdownDate : Date = Date()
     
-    @objc dynamic var dateCreated : Date = Date()
-    
     @objc dynamic var isDone : Bool = false
     
     @objc dynamic var notificationOn : Bool = false
-    
     
     
 }

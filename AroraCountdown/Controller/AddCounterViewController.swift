@@ -28,9 +28,16 @@ class AddCounterViewController: UIViewController {
     
     var countdownId = -99
     
-    var countdownToEdit : Countdown = Countdown()
+    var countdown : Countdown = Countdown()
     
     var notificationStatus : Bool = false
+    
+    let realm = try! Realm()
+    
+    //results is an autoupdating Realm datatype
+    var countdownList : Results<Countdown>?
+    
+    
     
     
     override func viewDidLoad() {
@@ -92,9 +99,34 @@ class AddCounterViewController: UIViewController {
         
         let countdownDate : Date = datePicker.date
         
-        //TODO: build and save new countdown
+        //build a countdown
         
+        countdown.id = countdownList?.count ?? 0
+        countdown.title = input
+        countdown.countdownDate = countdownDate
         
+        //save new countdown
+        do{
+            try realm.write{
+                realm.add(countdown)
+                
+                print("save. list count \(countdownList?.count ?? 0)")
+            }
+        } catch {
+            print("Error Adding Countdown: \(error)")
+        }
+        
+        self.dismiss(animated: true)
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let destinationVC = segue.destination as! MainViewController
+        
+        destinationVC.tableview.reloadData()
+        
+        print("prepare list size: \(destinationVC.countdownList?.count)")
         
     }
     
