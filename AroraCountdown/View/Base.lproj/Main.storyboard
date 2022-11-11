@@ -29,7 +29,7 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="AroraCountdown" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="89e-oT-FGe">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -47,6 +47,7 @@
                         <barButtonItem key="rightBarButtonItem" title="AddBarButton" image="plus" catalog="system" id="YNx-SZ-Ijs">
                             <connections>
                                 <action selector="addButton:" destination="BYZ-38-t0r" id="soc-dR-PSZ"/>
+                                <segue destination="oB8-Nh-Hyf" kind="show" identifier="goToAddCountdown" id="KzK-3i-vU2"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -57,14 +58,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="103.05343511450381" y="-2.1126760563380285"/>
+            <point key="canvasLocation" x="156" y="-2"/>
         </scene>
         <!--Add Counter View Controller-->
         <scene sceneID="fzj-g9-yeT">
             <objects>
                 <viewController storyboardIdentifier="AddCountdownVC" id="oB8-Nh-Hyf" customClass="AddCounterViewController" customModule="AroraCountdown" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="I3Y-cf-b1L">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f9M-PY-riZ">
@@ -97,7 +98,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHH-Mc-hzv">
-                                <rect key="frame" x="16" y="752" width="361" height="35"/>
+                                <rect key="frame" x="16" y="717" width="361" height="35"/>
                                 <color key="tintColor" systemColor="systemRedColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Delete"/>
@@ -114,6 +115,7 @@
                                 <buttonConfiguration key="configuration" style="filled" title="Confirm"/>
                                 <connections>
                                     <action selector="confirmButtonPressed:" destination="oB8-Nh-Hyf" eventType="touchUpInside" id="LQH-I1-9RO"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="goToMain" id="uj5-yi-I8L"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -151,9 +153,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tmW-BP-4sl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="907.63358778625945" y="-2.1126760563380285"/>
+            <point key="canvasLocation" x="911" y="-2"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="uj5-yi-I8L"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="bell.fill" catalog="system" width="123" height="128"/>
         <image name="plus" catalog="system" width="128" height="113"/>

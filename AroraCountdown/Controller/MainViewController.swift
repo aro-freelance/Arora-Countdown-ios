@@ -32,6 +32,8 @@ class MainViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        load()
+        
         createNotificationChannel()
         
         //TODO: build sound for notification?
@@ -76,6 +78,25 @@ class MainViewController: UITableViewController {
             let addCountdownVC = storyBoard.instantiateViewController(withIdentifier: "AddCountdownVC") as! AddCounterViewController
             self.present(addCountdownVC, animated:true, completion:nil)
         }
+        
+    }
+    
+    
+    //load data for the request input or use the default value Item.fetchRequest
+    func load(){
+        
+        countdownList = realm.objects(Countdown.self)
+        
+//        let request: NSFetchRequest<Category> = Category.fetchRequest()
+//
+//        do{
+//            categoryArray = try context.fetch(request)
+//        } catch {
+//            print("error loading categories \(error)")
+//        }
+//
+//
+        tableView.reloadData()
         
     }
     

@@ -45,6 +45,8 @@ class AddCounterViewController: UIViewController {
         
         deleteButton.isHidden = true
         
+        load()
+        
         //TODO: check if there is a countdownId passed from the MainViewController.
         
         if(countdownId >= 0){
@@ -59,10 +61,9 @@ class AddCounterViewController: UIViewController {
             
             deleteButton.isHidden = false
             
-            //TODO: get stored countdowns
-            
-            
             //TODO: for the list of countdowns get the one with countdownId and use it to set the date picker using the date information stored. Also use it to set the notification UI stuff.
+            
+            
             
             
         }
@@ -107,32 +108,67 @@ class AddCounterViewController: UIViewController {
         
         //save new countdown
         do{
-            try realm.write{
-                realm.add(countdown)
+            try realm.write {
                 
-                print("save. list count \(countdownList?.count ?? 0)")
+                self.realm.add(self.countdown)
+                
+                print("save. list count \(self.countdownList?.count ?? 0)")
+                
             }
         } catch {
             print("Error Adding Countdown: \(error)")
         }
         
-        self.dismiss(animated: true)
+        performSegue(withIdentifier: "goToMain", sender: self)
         
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        let destinationVC = segue.destination as! MainViewController
-        
-        destinationVC.tableview.reloadData()
-        
-        print("prepare list size: \(destinationVC.countdownList?.count)")
-        
-    }
+    
+
+//
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//
+//        let destinationVC = segue.destination as! MainViewController
+//
+//        destinationVC.tableview.reloadData()
+//
+//        print("prepare list size: \(destinationVC.countdownList?.count)")
+//
+//    }
     
     @IBAction func deleteButtonPressed(_ sender: Any) {
         
-        //TODO: delete the countdownToEdit from storage and close this VC (return to the MainVC)
+        //delete countdown
+        do{
+            try realm.write {
+                
+                self.realm.delete(self.countdown)
+                
+                print("save. list count \(self.countdownList?.count ?? 0)")
+            }
+        } catch {
+            print("Error delete Countdown: \(error)")
+        }
+        
+        performSegue(withIdentifier: "goToMain", sender: self)
+        
+    }
+    
+    //load data for the request input or use the default value Item.fetchRequest
+    func load(){
+        
+        countdownList = realm.objects(Countdown.self)
+        
+//        let request: NSFetchRequest<Category> = Category.fetchRequest()
+//
+//        do{
+//            categoryArray = try context.fetch(request)
+//        } catch {
+//            print("error loading categories \(error)")
+//        }
+//
+//
+        //tableView.reloadData()
         
     }
     
