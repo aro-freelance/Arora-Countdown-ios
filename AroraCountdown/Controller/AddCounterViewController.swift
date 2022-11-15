@@ -13,6 +13,8 @@ import RealmSwift
 
 class AddCounterViewController: UIViewController {
     
+    //TODO: fix close keyboard issue
+    
     
     @IBOutlet weak var bellImage: UIImageView!
     
@@ -119,7 +121,12 @@ class AddCounterViewController: UIViewController {
             print("Error Adding Countdown: \(error)")
         }
         
-        performSegue(withIdentifier: "goToMain", sender: self)
+        //performSegue(withIdentifier: "goToMain", sender: self)
+        //self.dismiss(animated: false, completion: nil)
+        let targetVC = navigationController?.viewControllers.first(where: {$0 is MainViewController})
+        if let targetVC = targetVC {
+           navigationController?.popToViewController(targetVC, animated: true)
+        }
         
     }
     
@@ -150,7 +157,13 @@ class AddCounterViewController: UIViewController {
             print("Error delete Countdown: \(error)")
         }
         
-        performSegue(withIdentifier: "goToMain", sender: self)
+        //performSegue(withIdentifier: "goToMain", sender: self)
+        //self.dismiss(animated: false, completion: nil)
+        
+        let targetVC = navigationController?.viewControllers.first(where: {$0 is MainViewController})
+        if let targetVC = targetVC {
+           navigationController?.popToViewController(targetVC, animated: true)
+        }
         
     }
     
