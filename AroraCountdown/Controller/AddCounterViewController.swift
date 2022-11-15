@@ -26,13 +26,15 @@ class AddCounterViewController: UIViewController {
     
     @IBOutlet weak var datePicker: UIDatePicker!
     
+    @IBOutlet weak var slider: UISwitch!
+    
     var isEdit : Bool = false
     
     var countdownId = -99
     
     var countdown : Countdown = Countdown()
     
-    var notificationStatus : Bool = false
+    var isNotificationOn : Bool = true
     
     let realm = try! Realm()
     
@@ -59,8 +61,7 @@ class AddCounterViewController: UIViewController {
             
             countdownTitle.text = countdown.title
             datePicker.setDate(countdown.countdownDate, animated: true)
-    
-            //TODO: set notification slider
+            slider.setOn(countdown.notificationOn, animated: true)
             
             
         }
@@ -70,18 +71,19 @@ class AddCounterViewController: UIViewController {
         
 
     }
-
-    @IBAction func notificationSlider(_ sender: Any) {
+    @IBAction func sliderChanged(_ sender: UISwitch) {
         
-        //TODO: set it so that if the slider is checked on then
-        notificationStatus = true
-        //show user a message that notifications are on
-        //else
-        notificationStatus = false
-        //show user a message that notifications are off
-        
-        
+        if sender.isOn{
+            isNotificationOn = true
+            
+        }else{
+            
+            isNotificationOn = false
+            
+        }
     }
+    
+  
     
     
     @IBAction func datePicker(_ sender: Any) {
@@ -97,24 +99,47 @@ class AddCounterViewController: UIViewController {
         
         let countdownDate : Date = datePicker.date
         
-        //build a countdown
-        
-        countdown.id = countdownList?.count ?? 0
-        countdown.title = input
-        countdown.countdownDate = countdownDate
-        
         //save new countdown
-        do{
-            try realm.write {
-                
-                self.realm.add(self.countdown)
-                
-                print("save. list count \(self.countdownList?.count ?? 0)")
-                
+        if(!isEdit){
+            do{
+                try realm.write {
+                    //build a countdown
+                    
+                    countdown.id = countdownList?.count ?? 0
+                    countdown.title = input
+                    countdown.countdownDate = countdownDate
+                    countdown.notificationOn = isNotificationOn
+                    
+                    self.realm.add(countdown)
+                    
+                    print("save. list count \(self.countdownList?.count ?? 0)")
+                    
+                }
+            } catch {
+                print("Error Adding Countdown: \(error)")
             }
-        } catch {
-            print("Error Adding Countdown: \(error)")
         }
+        else{
+            
+            do{
+                try realm.write {
+                    
+                    //build a countdown
+                    countdown.title = input
+                    countdown.countdownDate = countdownDate
+                    countdown.notificationOn = isNotificationOn
+                    
+                    self.realm.add(countdown)
+                    
+                    print("save. list count \(self.countdownList?.count ?? 0)")
+                    
+                }
+            } catch {
+                print("Error Adding Countdown: \(error)")
+            }
+            
+        }
+        
         
         //performSegue(withIdentifier: "goToMain", sender: self)
         //self.dismiss(animated: false, completion: nil)

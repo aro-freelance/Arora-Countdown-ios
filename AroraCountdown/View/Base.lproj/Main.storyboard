@@ -72,7 +72,7 @@
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f9M-PY-riZ">
                                 <rect key="frame" x="328" y="154" width="51" height="31"/>
                                 <connections>
-                                    <action selector="notificationSlider:" destination="oB8-Nh-Hyf" eventType="valueChanged" id="QJa-4V-0Bj"/>
+                                    <action selector="sliderChanged:" destination="oB8-Nh-Hyf" eventType="valueChanged" id="OyR-vp-UGt"/>
                                 </connections>
                             </switch>
                             <datePicker contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="VZP-I1-uKa">
@@ -149,6 +149,7 @@
                         <outlet property="countdownTitle" destination="swq-TO-bGt" id="cFe-xo-rua"/>
                         <outlet property="datePicker" destination="VZP-I1-uKa" id="V7U-Eb-Tr4"/>
                         <outlet property="deleteButton" destination="YHH-Mc-hzv" id="McJ-s7-hF6"/>
+                        <outlet property="slider" destination="f9M-PY-riZ" id="50L-6J-bJS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tmW-BP-4sl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

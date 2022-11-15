@@ -123,8 +123,12 @@ class MainViewController: UITableViewController {
         
         //Ternary Operator
         //value = condition ? valueTrue : valueFalse
+            
+            let imgView = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+            imgView.image = UIImage(systemName: "bell.circle")!
+            cell.accessoryView = countdown.notificationOn ? imgView : .none
         
-            cell.accessoryType = countdown.notificationOn ? .detailButton : .none
+            //cell.accessoryType = countdown.notificationOn ? .detailButton : .none
             
         } else {
             cell.textLabel?.text = "No Items Added"
