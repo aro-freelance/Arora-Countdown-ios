@@ -151,6 +151,7 @@ class MainViewController: UITableViewController {
         
         if let indexPath = tableview.indexPathForSelectedRow {
             destinationVC.countdown = countdownList?[indexPath.row] ?? Countdown()
+            destinationVC.isEdit = true
         }
         
     }

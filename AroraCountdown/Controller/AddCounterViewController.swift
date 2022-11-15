@@ -49,12 +49,6 @@ class AddCounterViewController: UIViewController {
         
         load()
         
-        //TODO: check if there is a countdownId passed from the MainViewController.
-        
-        if(countdownId >= 0){
-            isEdit = true
-        }
-        
         if(isEdit){
             
             confirmButton.setTitle("Update", for: .normal)
@@ -63,9 +57,10 @@ class AddCounterViewController: UIViewController {
             
             deleteButton.isHidden = false
             
-            //TODO: for the list of countdowns get the one with countdownId and use it to set the date picker using the date information stored. Also use it to set the notification UI stuff.
-            
-            
+            countdownTitle.text = countdown.title
+            datePicker.setDate(countdown.countdownDate, animated: true)
+    
+            //TODO: set notification slider
             
             
         }
@@ -144,6 +139,8 @@ class AddCounterViewController: UIViewController {
 //    }
     
     @IBAction func deleteButtonPressed(_ sender: Any) {
+        
+        //TODO: get confirmation from user before running the delete functionality
         
         //delete countdown
         do{
