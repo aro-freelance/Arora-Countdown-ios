@@ -7,30 +7,30 @@
 
 import UIKit
 import RealmSwift
+import AVFoundation
 
 class MainViewController: UITableViewController {
     
     /*
-     Notification Reference Guide: https://www.kodeco.com/11395893-push-notifications-tutorial-getting-started
+     Notification Reference Guide: https://developer.apple.com/documentation/usernotifications/scheduling_a_notification_locally_from_your_app
      */
     
     
     
     @IBOutlet var tableview: UITableView!
     
-    var notification : Notification = Notification(name: Notification.Name(rawValue: "name"))
-    
     let realm = try! Realm()
     
     //results is an autoupdating Realm datatype
     var countdownList : Results<Countdown>?
     
+    var timer = Timer()
+    var timerList = [String]()
+    
+    //list of the id numbers find in countdown list to handle completion or countdown (incase two finish at once)
+    var handleCompletionList = [Int]()
+    
     //TODO: initialize a sound controller
-    
-    
-    
-    
-    //TODO: look up how to access the background/notifications of ios device.  Equivalent to Service in Android. Then use that to implement the MyService file in my android project. This is to be used to run a timer in the background and compare it to the endtimes on the list of Countdowns. When the time passes, give the user a notification.
     
     
     
@@ -38,48 +38,38 @@ class MainViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        tableView.rowHeight = 120
+
         
-        load()
         
-        createNotificationChannel()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
         
-        //TODO: build sound for notification?
-        
-        //TODO: update per tick and check if finished by comparing dates
-        
-        storeNotificationList()
-        
-        print("view did load. list count \(countdownList?.count ?? 0)")
-        
+        timer.invalidate()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
-        print("view will appear. list count \(countdownList?.count ?? 0)")
+        //load countdowns to the tableview
+        load()
         
-        tableview.reloadData()
+        //make timer list
+        buildTimerList()
+        //run update per tick the first time
+        updatePerTick()
         
-    }
-    
-    
-    
-    func createNotificationChannel(){
-        
-        //TODO: create a background service for notifications
-        
-    }
-    
-    func storeNotificationList(){
-        
-        var numberWithNotifications = 0
-        
-        //TODO: for each countdown in the list, if notifications or on for it, store information about it, incrementing the number to mark each item in the list
-        //this will be retrieved by the Service which runs inthe BG and checks if the timer is ended, and then gives the user a notification
+        //update per tick
+        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(updatePerTick), userInfo: nil, repeats: true)
         
         
     }
     
+    
+    
+   
     
     @IBAction func addButton(_ sender: UIBarButtonItem) {
         
@@ -109,9 +99,114 @@ class MainViewController: UITableViewController {
         
     }
     
+    func buildTimerList(){
+        
+        for countdown in countdownList!{
+            
+            let now = Date()
+            let calendar = Calendar.current
+            //convert date stored in countdown to datecomponents
+            let timer = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: now, to: countdown.countdownDate)
+
+            var timerString = ""
+            
+            if(timer.year ?? 0 > 0){
+                timerString.append("Years: \(timer.year ?? 0)   ")
+            }
+            if(timer.month ?? 0 > 0){
+                timerString.append("Months: \(timer.month ?? 0)   ")
+            }
+            if(timer.day ?? 0 > 0){
+                timerString.append("Days: \(timer.day ?? 0)   ")
+            }
+            if(timer.hour ?? 0 > 0){
+                timerString.append("Hours: \(timer.hour ?? 0)   ")
+            }
+            if(timer.minute ?? 0 > 0){
+                timerString.append("Minutes: \(timer.minute ?? 0)")
+            }
+            
+            if(timerString == ""){
+                
+                if(!countdown.isDone){
+                    
+                    handleCompletionList.append(countdown.id)
+                    
+                }
+            
+                timerString = "Complete"
+            }
+            
+            
+            timerList.append(timerString)
+            
+        }
+        
+        tableview.reloadData()
+        
+        print("build timer called")
+        
+        
+    }
     
+    @objc func updatePerTick(){
+        
+        timerList.removeAll()
+        
+        //update the table with new timer information each tick
+        buildTimerList()
+        
+        for id in handleCompletionList{ handleCountdownEnd(id) }
+        
+    }
     
-    
+    func handleCountdownEnd(_ id: Int){
+        
+        for countdown in countdownList!{
+         
+            if(countdown.id == id){
+                
+                AudioServicesPlaySystemSound(1005)
+                
+                do{
+                    try realm.write {
+            
+                        countdown.isDone = true
+                        
+                        self.realm.add(countdown)
+                        
+                        print("update countdown to done")
+                        
+                    }
+                } catch {
+                    print("Error updating Countdown: \(error)")
+                }
+                
+                // Create new Alert
+                var dialogMessage = UIAlertController(title: "Countdown Complete", message: "\(countdown.title) countdown has completed.", preferredStyle: .alert)
+                
+                // Create OK button with action handler
+                let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+                    print("Ok button tapped")
+                 })
+                
+                //Add OK button to a dialog message
+                dialogMessage.addAction(ok)
+                // Present Alert to
+                self.present(dialogMessage, animated: true, completion: nil)
+                
+                if(!handleCompletionList.isEmpty){
+                    handleCompletionList.removeFirst()
+                }
+                
+                
+                
+            }
+        
+        }
+        
+        
+    }
     
     
     
@@ -124,19 +219,27 @@ class MainViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        //TODO: make a custom cell that displays title + timer info cleaner
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "CountdownCell", for: indexPath)
         
         if let countdown = countdownList?[indexPath.row] {
-        
-            cell.textLabel?.text = countdown.title
-        
-        //Ternary Operator
-        //value = condition ? valueTrue : valueFalse
+            
+            let timer = timerList[indexPath.row]
+            
+            cell.textLabel?.lineBreakMode = .byWordWrapping
+            cell.textLabel?.numberOfLines = 10
+            
+            cell.textLabel?.text = "\(countdown.title) \n\n\(timer)"
+            
+            //Ternary Operator
+            //value = condition ? valueTrue : valueFalse
             
             let imgView = UIImageView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
             imgView.image = UIImage(systemName: "bell.circle")!
             cell.accessoryView = countdown.notificationOn ? imgView : .none
-        
+            
             //cell.accessoryType = countdown.notificationOn ? .detailButton : .none
             
         } else {
