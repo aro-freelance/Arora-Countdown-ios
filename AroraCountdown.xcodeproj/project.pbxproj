@@ -17,7 +17,34 @@
 		387EF82F291D9C8200CE8748 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 387EF82E291D9C8200CE8748 /* Realm */; };
 		387EF831291D9C8200CE8748 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 387EF830291D9C8200CE8748 /* RealmSwift */; };
 		387EF833291D9E6300CE8748 /* AddCounterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387EF832291D9E6300CE8748 /* AddCounterViewController.swift */; };
+		387EF8362926C04600CE8748 /* CustomNotificationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387EF8352926C04600CE8748 /* CustomNotificationDelegate.swift */; };
+		387EF83E2926C1B700CE8748 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387EF83D2926C1B700CE8748 /* NotificationService.swift */; };
+		387EF8422926C1B700CE8748 /* PayloadModification.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 387EF83B2926C1B700CE8748 /* PayloadModification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		387EF8402926C1B700CE8748 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 387EF807291D980300CE8748 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 387EF83A2926C1B700CE8748;
+			remoteInfo = PayloadModification;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		387EF8462926C1B700CE8748 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				387EF8422926C1B700CE8748 /* PayloadModification.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		387EF80F291D980300CE8748 /* AroraCountdown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AroraCountdown.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -30,6 +57,11 @@
 		387EF820291D980600CE8748 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		387EF82A291D9A4100CE8748 /* Countdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Countdown.swift; sourceTree = "<group>"; };
 		387EF832291D9E6300CE8748 /* AddCounterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCounterViewController.swift; sourceTree = "<group>"; };
+		387EF8342926BA9300CE8748 /* AroraCountdown.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AroraCountdown.entitlements; sourceTree = "<group>"; };
+		387EF8352926C04600CE8748 /* CustomNotificationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNotificationDelegate.swift; sourceTree = "<group>"; };
+		387EF83B2926C1B700CE8748 /* PayloadModification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PayloadModification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		387EF83D2926C1B700CE8748 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		387EF83F2926C1B700CE8748 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +74,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		387EF8382926C1B700CE8748 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -49,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				387EF811291D980300CE8748 /* AroraCountdown */,
+				387EF83C2926C1B700CE8748 /* PayloadModification */,
 				387EF810291D980300CE8748 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -57,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				387EF80F291D980300CE8748 /* AroraCountdown.app */,
+				387EF83B2926C1B700CE8748 /* PayloadModification.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -64,6 +105,7 @@
 		387EF811291D980300CE8748 /* AroraCountdown */ = {
 			isa = PBXGroup;
 			children = (
+				387EF8342926BA9300CE8748 /* AroraCountdown.entitlements */,
 				387EF812291D980300CE8748 /* AppDelegate.swift */,
 				387EF814291D980300CE8748 /* SceneDelegate.swift */,
 				387EF82C291D9A4600CE8748 /* Model */,
@@ -71,6 +113,7 @@
 				387EF828291D9A1300CE8748 /* Controller */,
 				387EF81B291D980600CE8748 /* Assets.xcassets */,
 				387EF820291D980600CE8748 /* Info.plist */,
+				387EF8352926C04600CE8748 /* CustomNotificationDelegate.swift */,
 			);
 			path = AroraCountdown;
 			sourceTree = "<group>";
@@ -101,6 +144,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		387EF83C2926C1B700CE8748 /* PayloadModification */ = {
+			isa = PBXGroup;
+			children = (
+				387EF83D2926C1B700CE8748 /* NotificationService.swift */,
+				387EF83F2926C1B700CE8748 /* Info.plist */,
+			);
+			path = PayloadModification;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -111,10 +163,12 @@
 				387EF80B291D980300CE8748 /* Sources */,
 				387EF80C291D980300CE8748 /* Frameworks */,
 				387EF80D291D980300CE8748 /* Resources */,
+				387EF8462926C1B700CE8748 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				387EF8412926C1B700CE8748 /* PBXTargetDependency */,
 			);
 			name = AroraCountdown;
 			packageProductDependencies = (
@@ -124,6 +178,23 @@
 			productName = AroraCountdown;
 			productReference = 387EF80F291D980300CE8748 /* AroraCountdown.app */;
 			productType = "com.apple.product-type.application";
+		};
+		387EF83A2926C1B700CE8748 /* PayloadModification */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 387EF8432926C1B700CE8748 /* Build configuration list for PBXNativeTarget "PayloadModification" */;
+			buildPhases = (
+				387EF8372926C1B700CE8748 /* Sources */,
+				387EF8382926C1B700CE8748 /* Frameworks */,
+				387EF8392926C1B700CE8748 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PayloadModification;
+			productName = PayloadModification;
+			productReference = 387EF83B2926C1B700CE8748 /* PayloadModification.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -136,6 +207,9 @@
 				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					387EF80E291D980300CE8748 = {
+						CreatedOnToolsVersion = 14.1;
+					};
+					387EF83A2926C1B700CE8748 = {
 						CreatedOnToolsVersion = 14.1;
 					};
 				};
@@ -157,6 +231,7 @@
 			projectRoot = "";
 			targets = (
 				387EF80E291D980300CE8748 /* AroraCountdown */,
+				387EF83A2926C1B700CE8748 /* PayloadModification */,
 			);
 		};
 /* End PBXProject section */
@@ -172,6 +247,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		387EF8392926C1B700CE8748 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -181,13 +263,30 @@
 			files = (
 				387EF817291D980300CE8748 /* MainViewController.swift in Sources */,
 				387EF813291D980300CE8748 /* AppDelegate.swift in Sources */,
+				387EF8362926C04600CE8748 /* CustomNotificationDelegate.swift in Sources */,
 				387EF833291D9E6300CE8748 /* AddCounterViewController.swift in Sources */,
 				387EF815291D980300CE8748 /* SceneDelegate.swift in Sources */,
 				387EF82B291D9A4100CE8748 /* Countdown.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		387EF8372926C1B700CE8748 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				387EF83E2926C1B700CE8748 /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		387EF8412926C1B700CE8748 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 387EF83A2926C1B700CE8748 /* PayloadModification */;
+			targetProxy = 387EF8402926C1B700CE8748 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		387EF818291D980300CE8748 /* Main.storyboard */ = {
@@ -326,8 +425,10 @@
 		387EF824291D980600CE8748 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = AroraCountdown/AroraCountdown.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3YA64BQ5PB;
@@ -355,8 +456,10 @@
 		387EF825291D980600CE8748 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = AroraCountdown/AroraCountdown.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3YA64BQ5PB;
@@ -381,6 +484,56 @@
 			};
 			name = Release;
 		};
+		387EF8442926C1B700CE8748 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3YA64BQ5PB;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PayloadModification/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PayloadModification;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aroragames.AroraCountdown.PayloadModification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		387EF8452926C1B700CE8748 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3YA64BQ5PB;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PayloadModification/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PayloadModification;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aroragames.AroraCountdown.PayloadModification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -398,6 +551,15 @@
 			buildConfigurations = (
 				387EF824291D980600CE8748 /* Debug */,
 				387EF825291D980600CE8748 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		387EF8432926C1B700CE8748 /* Build configuration list for PBXNativeTarget "PayloadModification" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				387EF8442926C1B700CE8748 /* Debug */,
+				387EF8452926C1B700CE8748 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -10,10 +10,15 @@ import RealmSwift
 
 class MainViewController: UITableViewController {
     
+    /*
+     Notification Reference Guide: https://www.kodeco.com/11395893-push-notifications-tutorial-getting-started
+     */
+    
     
     
     @IBOutlet var tableview: UITableView!
     
+    var notification : Notification = Notification(name: Notification.Name(rawValue: "name"))
     
     let realm = try! Realm()
     
@@ -54,6 +59,8 @@ class MainViewController: UITableViewController {
         tableview.reloadData()
         
     }
+    
+    
     
     func createNotificationChannel(){
         
