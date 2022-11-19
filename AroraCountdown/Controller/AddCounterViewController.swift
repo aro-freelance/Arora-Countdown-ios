@@ -63,14 +63,22 @@ class AddCounterViewController: UIViewController {
             datePicker.setDate(countdown.countdownDate, animated: true)
             slider.setOn(countdown.notificationOn, animated: true)
             
+            //if there is a previous notification, remove it. it will be saved again when the user saves edit
+            if(countdown.notificationOn){
+                clearNotification()
+            }
+            
             
         }
         
         
         //TODO: for the edittext ( countdownTitle ) when enter is pressed close the softkeyboard and trim any extra space at the end.
-        
 
     }
+    
+    
+    
+    
     @IBAction func sliderChanged(_ sender: UISwitch) {
         
         if sender.isOn{
@@ -98,6 +106,7 @@ class AddCounterViewController: UIViewController {
         let input : String = countdownTitle.text.trimmingCharacters(in: .whitespacesAndNewlines)
         
         let countdownDate : Date = datePicker.date
+    
         
         //save new countdown
         if(!isEdit){
@@ -140,6 +149,10 @@ class AddCounterViewController: UIViewController {
             
         }
         
+        //add notification if it is on
+        if(countdown.notificationOn){
+            handleNotification()
+        }
         
         //performSegue(withIdentifier: "goToMain", sender: self)
         //self.dismiss(animated: false, completion: nil)
@@ -204,6 +217,53 @@ class AddCounterViewController: UIViewController {
 //
 //
         //tableView.reloadData()
+        
+    }
+    
+    
+    func handleNotification(){
+        
+        print("handle notification method ping.")
+        
+        //set up the message to show
+        let content = UNMutableNotificationContent()
+        content.title = "Arora Countdown"
+        content.body = "\(countdown.title) timer completed."
+        
+        //convert date stored in countdown to datecomponents
+        let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: countdown.countdownDate)
+        
+        //make a request object
+        let trigger = UNCalendarNotificationTrigger(
+            dateMatching: dateComponents,
+            repeats: false)
+        //previous identifier
+        //let uuidString = UUID().uuidString
+        let identifier = String(countdown.id)
+        let request = UNNotificationRequest(identifier: identifier,
+                    content: content, trigger: trigger)
+
+        //add the request to the notification center
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.add(request) { (error) in
+           if error != nil {
+               print("Error handling notification. \(error)")
+           }
+        }
+        
+    }
+    
+    func clearNotification(){
+        /*
+         To cancel an active notification request, call the removePendingNotificationRequests(withIdentifiers:)
+         */
+        
+        print("clear notification method ping.")
+        
+        let notificationCenter = UNUserNotificationCenter.current()
+        let identifier = String(countdown.id)
+        let identifiers = [identifier]
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: identifiers)
         
     }
     
