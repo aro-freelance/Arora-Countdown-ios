@@ -38,6 +38,8 @@ class AddCounterViewController: UIViewController {
     
     let realm = try! Realm()
     
+    var wasNotificationOn : Bool = false
+    
     //results is an autoupdating Realm datatype
     var countdownList : Results<Countdown>?
     
@@ -62,11 +64,12 @@ class AddCounterViewController: UIViewController {
             countdownTitle.text = countdown.title
             datePicker.setDate(countdown.countdownDate, animated: true)
             slider.setOn(countdown.notificationOn, animated: true)
+            wasNotificationOn = countdown.notificationOn
             
-            //if there is a previous notification, remove it. it will be saved again when the user saves edit
-            if(countdown.notificationOn){
-                clearNotification()
-            }
+//            //if there is a previous notification, remove it. it will be saved again when the user saves
+//            if(countdown.notificationOn){
+//                clearNotification()
+//            }
             
             
         }
@@ -118,6 +121,7 @@ class AddCounterViewController: UIViewController {
                     countdown.title = input
                     countdown.countdownDate = countdownDate
                     countdown.notificationOn = isNotificationOn
+                    countdown.isDone = false
                     
                     self.realm.add(countdown)
                     
@@ -130,6 +134,11 @@ class AddCounterViewController: UIViewController {
         }
         else{
             
+            //if we are saving an edit, and there was a previous notification, remove it
+            if(wasNotificationOn){
+                clearNotification()
+            }
+            
             do{
                 try realm.write {
                     
@@ -137,6 +146,7 @@ class AddCounterViewController: UIViewController {
                     countdown.title = input
                     countdown.countdownDate = countdownDate
                     countdown.notificationOn = isNotificationOn
+                    countdown.isDone = false
                     
                     self.realm.add(countdown)
                     
@@ -162,23 +172,41 @@ class AddCounterViewController: UIViewController {
         }
         
     }
-    
-    
-
-//
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//
-//        let destinationVC = segue.destination as! MainViewController
-//
-//        destinationVC.tableview.reloadData()
-//
-//        print("prepare list size: \(destinationVC.countdownList?.count)")
-//
-//    }
+ 
     
     @IBAction func deleteButtonPressed(_ sender: Any) {
         
         //TODO: get confirmation from user before running the delete functionality
+        
+        
+        // Declare Alert message
+        let dialogMessage = UIAlertController(title: "Confirm", message: "Are you sure you want to delete this?", preferredStyle: .alert)
+        
+        // Create OK button with action handler
+        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+            print("Ok button tapped")
+            self.delete()
+        })
+        
+        // Create Cancel button with action handlder
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) -> Void in
+            print("Cancel button tapped")
+        }
+        
+        //Add OK and Cancel button to dialog message
+        dialogMessage.addAction(ok)
+        dialogMessage.addAction(cancel)
+        
+        // Present dialog message to user
+        self.present(dialogMessage, animated: true, completion: nil)
+        
+    }
+    
+    func delete(){
+        //if we are saving an edit, and there was a previous notification, remove it
+        if(wasNotificationOn){
+            clearNotification()
+        }
         
         //delete countdown
         do{
@@ -192,31 +220,18 @@ class AddCounterViewController: UIViewController {
             print("Error delete Countdown: \(error)")
         }
         
-        //performSegue(withIdentifier: "goToMain", sender: self)
-        //self.dismiss(animated: false, completion: nil)
         
         let targetVC = navigationController?.viewControllers.first(where: {$0 is MainViewController})
         if let targetVC = targetVC {
            navigationController?.popToViewController(targetVC, animated: true)
         }
-        
     }
     
     //load data for the request input or use the default value Item.fetchRequest
     func load(){
         
         countdownList = realm.objects(Countdown.self)
-        
-//        let request: NSFetchRequest<Category> = Category.fetchRequest()
-//
-//        do{
-//            categoryArray = try context.fetch(request)
-//        } catch {
-//            print("error loading categories \(error)")
-//        }
-//
-//
-        //tableView.reloadData()
+
         
     }
     
@@ -237,9 +252,8 @@ class AddCounterViewController: UIViewController {
         let trigger = UNCalendarNotificationTrigger(
             dateMatching: dateComponents,
             repeats: false)
-        //previous identifier
-        //let uuidString = UUID().uuidString
-        let identifier = String(countdown.id)
+        
+        let identifier = "AroraCountdown\(countdown.id)"
         let request = UNNotificationRequest(identifier: identifier,
                     content: content, trigger: trigger)
 
@@ -254,15 +268,13 @@ class AddCounterViewController: UIViewController {
     }
     
     func clearNotification(){
-        /*
-         To cancel an active notification request, call the removePendingNotificationRequests(withIdentifiers:)
-         */
         
         print("clear notification method ping.")
         
         let notificationCenter = UNUserNotificationCenter.current()
-        let identifier = String(countdown.id)
+        let identifier = "AroraCountdown\(countdown.id)"
         let identifiers = [identifier]
+        //delete notification by identifier
         notificationCenter.removePendingNotificationRequests(withIdentifiers: identifiers)
         
     }

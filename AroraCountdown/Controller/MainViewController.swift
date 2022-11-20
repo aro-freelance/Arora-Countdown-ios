@@ -30,9 +30,6 @@ class MainViewController: UITableViewController {
     //list of the id numbers find in countdown list to handle completion or countdown (incase two finish at once)
     var handleCompletionList = [Int]()
     
-    //TODO: initialize a sound controller
-    
-    
     
     // this VC will be the home screen. tableview of timers.  button to add more timers takes you to the add counter VC.
 
@@ -62,7 +59,7 @@ class MainViewController: UITableViewController {
         updatePerTick()
         
         //update per tick
-        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(updatePerTick), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updatePerTick), userInfo: nil, repeats: true)
         
         
     }
@@ -85,16 +82,7 @@ class MainViewController: UITableViewController {
     func load(){
         
         countdownList = realm.objects(Countdown.self)
-        
-//        let request: NSFetchRequest<Category> = Category.fetchRequest()
-//
-//        do{
-//            categoryArray = try context.fetch(request)
-//        } catch {
-//            print("error loading categories \(error)")
-//        }
-//
-//
+
         tableView.reloadData()
         
     }
@@ -106,25 +94,39 @@ class MainViewController: UITableViewController {
             let now = Date()
             let calendar = Calendar.current
             //convert date stored in countdown to datecomponents
-            let timer = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: now, to: countdown.countdownDate)
+            let timer = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: now, to: countdown.countdownDate)
 
             var timerString = ""
             
             if(timer.year ?? 0 > 0){
-                timerString.append("Years: \(timer.year ?? 0)   ")
+                timerString.append("Years: \(timer.year ?? 0)  ")
             }
             if(timer.month ?? 0 > 0){
-                timerString.append("Months: \(timer.month ?? 0)   ")
+                timerString.append("Months: \(timer.month ?? 0)  ")
             }
             if(timer.day ?? 0 > 0){
-                timerString.append("Days: \(timer.day ?? 0)   ")
+                timerString.append("Days: \(timer.day ?? 0)  ")
             }
             if(timer.hour ?? 0 > 0){
-                timerString.append("Hours: \(timer.hour ?? 0)   ")
+                timerString.append("Hours: \(timer.hour ?? 0)  ")
             }
             if(timer.minute ?? 0 > 0){
-                timerString.append("Minutes: \(timer.minute ?? 0)")
+                //under 5 minutes but above 1
+                if(timer.minute ?? 0 < 5){
+                    timerString.append("Minutes: \(timer.minute ?? 0)  ")
+                    timerString.append("Seconds: \(timer.second ?? 0)")
+                }
+                //more than 5 minutes
+                else{
+                    timerString.append("Minutes: \(timer.minute ?? 0)")
+                }
             }
+            //less than 1 minute but more than 0 seconds
+            else if (timer.second ?? 0 > 0){
+                timerString.append("Seconds: \(timer.second ?? 0)")
+                //timerString.append("Less than 1 minute remaining")
+            }
+            
             
             if(timerString == ""){
                 
@@ -143,9 +145,6 @@ class MainViewController: UITableViewController {
         }
         
         tableview.reloadData()
-        
-        print("build timer called")
-        
         
     }
     
@@ -166,7 +165,9 @@ class MainViewController: UITableViewController {
          
             if(countdown.id == id){
                 
-                AudioServicesPlaySystemSound(1005)
+                if(countdown.notificationOn){
+                    AudioServicesPlaySystemSound(1005)
+                }
                 
                 do{
                     try realm.write {
@@ -240,7 +241,6 @@ class MainViewController: UITableViewController {
             imgView.image = UIImage(systemName: "bell.circle")!
             cell.accessoryView = countdown.notificationOn ? imgView : .none
             
-            //cell.accessoryType = countdown.notificationOn ? .detailButton : .none
             
         } else {
             cell.textLabel?.text = "No Items Added"
