@@ -11,7 +11,7 @@ import RealmSwift
 
 //this VC is for letting the user set up and save a new counter
 
-class AddCounterViewController: UIViewController {
+class AddCounterViewController: UIViewController{
     
     //TODO: fix close keyboard issue
     
@@ -49,7 +49,11 @@ class AddCounterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.countdownTitle.addDoneButton(title: "Done", target: self, selector: #selector(tapDone(sender:)))
+        
+        
         deleteButton.isHidden = true
+        
         
         load()
         
@@ -66,20 +70,15 @@ class AddCounterViewController: UIViewController {
             slider.setOn(countdown.notificationOn, animated: true)
             wasNotificationOn = countdown.notificationOn
             
-//            //if there is a previous notification, remove it. it will be saved again when the user saves
-//            if(countdown.notificationOn){
-//                clearNotification()
-//            }
-            
             
         }
         
-        
-        //TODO: for the edittext ( countdownTitle ) when enter is pressed close the softkeyboard and trim any extra space at the end.
 
     }
     
-    
+    @objc func tapDone(sender: Any) {
+            self.view.endEditing(true)
+    } 
     
     
     @IBAction func sliderChanged(_ sender: UISwitch) {
@@ -94,7 +93,7 @@ class AddCounterViewController: UIViewController {
         }
     }
     
-  
+    
     
     
     @IBAction func datePicker(_ sender: Any) {
@@ -280,3 +279,5 @@ class AddCounterViewController: UIViewController {
     }
     
 }
+
+

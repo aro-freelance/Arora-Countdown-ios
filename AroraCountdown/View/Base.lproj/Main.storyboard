@@ -69,34 +69,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f9M-PY-riZ">
-                                <rect key="frame" x="328" y="154" width="51" height="31"/>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f9M-PY-riZ">
+                                <rect key="frame" x="326" y="103" width="51" height="31"/>
                                 <connections>
                                     <action selector="sliderChanged:" destination="oB8-Nh-Hyf" eventType="valueChanged" id="OyR-vp-UGt"/>
                                 </connections>
                             </switch>
-                            <datePicker contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="VZP-I1-uKa">
-                                <rect key="frame" x="46" y="307" width="300" height="137"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="137" id="S80-ZF-uZp"/>
-                                </constraints>
-                                <connections>
-                                    <action selector="datePicker:" destination="oB8-Nh-Hyf" eventType="valueChanged" id="DDk-H4-fjw"/>
-                                </connections>
-                            </datePicker>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bell.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="HCy-18-sIc">
-                                <rect key="frame" x="261" y="149.33333333333334" width="40" height="40.333333333333343"/>
+                                <rect key="frame" x="278" y="103.33333333333333" width="40" height="40.333333333333329"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="YkU-bA-zwP"/>
+                                </constraints>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" keyboardDismissMode="interactive" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="swq-TO-bGt">
-                                <rect key="frame" x="46" y="505" width="300" height="151"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <rect key="frame" x="46" y="281" width="300" height="151"/>
+                                <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
                                 <accessibility key="accessibilityConfiguration" hint="What are you counting down towards?"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="151" id="UAD-rE-BLc"/>
+                                    <constraint firstAttribute="height" constant="151" id="hfq-J1-KrR"/>
                                 </constraints>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHH-Mc-hzv">
                                 <rect key="frame" x="16" y="752" width="361" height="35"/>
@@ -110,7 +104,7 @@
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9C1-aH-Dz2">
                                 <rect key="frame" x="16" y="664" width="359" height="37"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="37" id="qXi-CD-LK7"/>
+                                    <constraint firstAttribute="height" constant="37" id="TAC-4N-0Nv"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Confirm"/>
@@ -118,35 +112,44 @@
                                     <action selector="confirmButtonPressed:" destination="oB8-Nh-Hyf" eventType="touchUpInside" id="LQH-I1-9RO"/>
                                 </connections>
                             </button>
+                            <datePicker contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="VZP-I1-uKa">
+                                <rect key="frame" x="45" y="172" width="300" height="137"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="137" id="fZM-GC-SoV"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="datePicker:" destination="oB8-Nh-Hyf" eventType="valueChanged" id="DDk-H4-fjw"/>
+                                </connections>
+                            </datePicker>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Xjn-qo-OJu"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="VZP-I1-uKa" firstAttribute="trailing" secondItem="swq-TO-bGt" secondAttribute="trailing" id="0ot-O4-FgN"/>
-                            <constraint firstItem="f9M-PY-riZ" firstAttribute="trailing" secondItem="I3Y-cf-b1L" secondAttribute="trailingMargin" id="6BY-wo-D3b"/>
-                            <constraint firstItem="swq-TO-bGt" firstAttribute="top" secondItem="VZP-I1-uKa" secondAttribute="bottom" constant="61" id="9J8-8q-1Nx"/>
-                            <constraint firstItem="VZP-I1-uKa" firstAttribute="leading" secondItem="Xjn-qo-OJu" secondAttribute="leading" constant="46" id="Dzn-2I-Fwo"/>
-                            <constraint firstItem="YHH-Mc-hzv" firstAttribute="top" secondItem="9C1-aH-Dz2" secondAttribute="bottom" constant="8" id="KQe-E7-KNh"/>
-                            <constraint firstItem="9C1-aH-Dz2" firstAttribute="leading" secondItem="I3Y-cf-b1L" secondAttribute="leadingMargin" id="O4p-If-39k"/>
-                            <constraint firstItem="swq-TO-bGt" firstAttribute="centerX" secondItem="YHH-Mc-hzv" secondAttribute="centerX" id="Rno-Mb-3gg"/>
-                            <constraint firstItem="HCy-18-sIc" firstAttribute="leading" secondItem="Xjn-qo-OJu" secondAttribute="leading" constant="261" id="SZU-Nu-CHe"/>
-                            <constraint firstItem="HCy-18-sIc" firstAttribute="top" secondItem="Xjn-qo-OJu" secondAttribute="top" constant="46.000000000000043" id="Vyl-9K-MtL"/>
-                            <constraint firstItem="f9M-PY-riZ" firstAttribute="trailing" secondItem="YHH-Mc-hzv" secondAttribute="trailing" id="ZvN-Oe-WlI"/>
-                            <constraint firstItem="swq-TO-bGt" firstAttribute="centerX" secondItem="9C1-aH-Dz2" secondAttribute="centerX" id="b7m-Lq-4pB"/>
-                            <constraint firstItem="9C1-aH-Dz2" firstAttribute="leading" secondItem="YHH-Mc-hzv" secondAttribute="leading" id="hGd-wW-fSh"/>
-                            <constraint firstItem="VZP-I1-uKa" firstAttribute="leading" secondItem="swq-TO-bGt" secondAttribute="leading" id="kDq-ND-Csm"/>
-                            <constraint firstItem="f9M-PY-riZ" firstAttribute="top" secondItem="Xjn-qo-OJu" secondAttribute="top" constant="51" id="kWz-5J-9dF"/>
-                            <constraint firstItem="HCy-18-sIc" firstAttribute="centerY" secondItem="f9M-PY-riZ" secondAttribute="centerY" id="lJY-wc-X9f"/>
-                            <constraint firstItem="9C1-aH-Dz2" firstAttribute="top" secondItem="swq-TO-bGt" secondAttribute="bottom" constant="51" id="lkd-id-lqp"/>
-                            <constraint firstItem="f9M-PY-riZ" firstAttribute="leading" secondItem="HCy-18-sIc" secondAttribute="trailing" constant="27" id="reC-zZ-Aby"/>
-                            <constraint firstItem="Xjn-qo-OJu" firstAttribute="bottom" secondItem="YHH-Mc-hzv" secondAttribute="bottom" constant="31" id="yBT-Iy-yni"/>
+                            <constraint firstItem="swq-TO-bGt" firstAttribute="centerX" secondItem="YHH-Mc-hzv" secondAttribute="centerX" id="23i-cy-5FF"/>
+                            <constraint firstItem="9C1-aH-Dz2" firstAttribute="leading" secondItem="I3Y-cf-b1L" secondAttribute="leadingMargin" id="B7k-TK-1qB"/>
+                            <constraint firstItem="YHH-Mc-hzv" firstAttribute="top" secondItem="9C1-aH-Dz2" secondAttribute="bottom" constant="51" id="Dfa-L4-Mgv"/>
+                            <constraint firstItem="f9M-PY-riZ" firstAttribute="leading" secondItem="HCy-18-sIc" secondAttribute="trailing" constant="8" id="Fdv-kH-Clh"/>
+                            <constraint firstItem="swq-TO-bGt" firstAttribute="top" secondItem="I3Y-cf-b1L" secondAttribute="top" constant="281" id="FqA-Hr-xPN"/>
+                            <constraint firstItem="Xjn-qo-OJu" firstAttribute="bottom" secondItem="YHH-Mc-hzv" secondAttribute="bottom" constant="31" id="IAh-er-FJk"/>
+                            <constraint firstItem="YHH-Mc-hzv" firstAttribute="trailing" secondItem="I3Y-cf-b1L" secondAttribute="trailingMargin" id="Tc4-AI-sIW"/>
+                            <constraint firstItem="f9M-PY-riZ" firstAttribute="trailing" secondItem="9C1-aH-Dz2" secondAttribute="trailing" id="UvZ-Ka-BUd"/>
+                            <constraint firstItem="VZP-I1-uKa" firstAttribute="top" secondItem="HCy-18-sIc" secondAttribute="bottom" constant="28" id="Z1M-Dn-xdJ"/>
+                            <constraint firstItem="9C1-aH-Dz2" firstAttribute="leading" secondItem="YHH-Mc-hzv" secondAttribute="leading" id="ZZy-8v-z1d"/>
+                            <constraint firstItem="VZP-I1-uKa" firstAttribute="leading" secondItem="Xjn-qo-OJu" secondAttribute="leading" constant="45" id="dmn-d3-lHT"/>
+                            <constraint firstItem="VZP-I1-uKa" firstAttribute="centerX" secondItem="9C1-aH-Dz2" secondAttribute="centerX" id="k1I-O9-aEp"/>
+                            <constraint firstItem="f9M-PY-riZ" firstAttribute="top" secondItem="Xjn-qo-OJu" secondAttribute="top" id="lbd-cH-aaC"/>
+                            <constraint firstItem="swq-TO-bGt" firstAttribute="leading" secondItem="Xjn-qo-OJu" secondAttribute="leading" constant="46" id="oYO-W1-SF8"/>
+                            <constraint firstItem="swq-TO-bGt" firstAttribute="centerX" secondItem="9C1-aH-Dz2" secondAttribute="centerX" id="rCb-zF-HzO"/>
+                            <constraint firstItem="HCy-18-sIc" firstAttribute="top" secondItem="Xjn-qo-OJu" secondAttribute="top" constant="1.4210854715202004e-14" id="rha-Oq-GsB"/>
+                            <constraint firstItem="VZP-I1-uKa" firstAttribute="top" secondItem="f9M-PY-riZ" secondAttribute="bottom" constant="38" id="wCS-yT-mIO"/>
+                            <constraint firstItem="HCy-18-sIc" firstAttribute="leading" secondItem="Xjn-qo-OJu" secondAttribute="leading" constant="278" id="yHx-MR-mMi"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="9rf-NN-GEC"/>
                     <connections>
                         <outlet property="bellImage" destination="HCy-18-sIc" id="qpB-zf-mLH"/>
                         <outlet property="confirmButton" destination="9C1-aH-Dz2" id="A6s-ap-3va"/>
-                        <outlet property="countdownTitle" destination="swq-TO-bGt" id="cFe-xo-rua"/>
+                        <outlet property="countdownTitle" destination="swq-TO-bGt" id="UpJ-8B-IFp"/>
                         <outlet property="datePicker" destination="VZP-I1-uKa" id="V7U-Eb-Tr4"/>
                         <outlet property="deleteButton" destination="YHH-Mc-hzv" id="McJ-s7-hF6"/>
                         <outlet property="slider" destination="f9M-PY-riZ" id="50L-6J-bJS"/>
@@ -168,6 +171,9 @@
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tertiarySystemGroupedBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
